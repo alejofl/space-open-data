@@ -5,6 +5,8 @@ export const Route = createFileRoute('/')({
   component: App,
 })
 
+// API: https://ll.thespacedevs.com/docs/#/
+
 function App() {
   return (
     <div className="flex gap-6 flex-wrap justify-center">
