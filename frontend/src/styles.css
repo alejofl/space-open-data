@@ -143,3 +143,7 @@ code {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.bold-anchors a {
+  @apply font-bold;
+}
