@@ -30,16 +30,16 @@ export function LaunchCard({title, company, imageUrl, launchDate, status}: Launc
                 <TMinusCounter targetTime={launchDate}/>
             </div>
             <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <div className={clsx("w-full h-10 flex items-center justify-center uppercase font-semibold", launchStatuses[status].color)}>
-                        {launchStatuses[status].abbrev}
-                    </div>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="w-64" sideOffset={-16}>
-                    <p>{launchStatuses[status].description}</p>
-                </TooltipContent>
-            </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <div className={clsx("w-full h-10 flex items-center justify-center uppercase font-semibold", launchStatuses[status].color)}>
+                            {launchStatuses[status].abbrev}
+                        </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="w-64" sideOffset={-16}>
+                        <p>{launchStatuses[status].description}</p>
+                    </TooltipContent>
+                </Tooltip>
             </TooltipProvider>
             
         </div>
