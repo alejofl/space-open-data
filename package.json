@@ -1,0 +1,25 @@
+{
+  "name": "space-open-data",
+  "version": "1.0.0",
+  "description": "## Final Remarks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alejofl/space-open-data.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alejofl/space-open-data/issues"
+  },
+  "homepage": "https://github.com/alejofl/space-open-data#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
+    "express": "^5.1.0"
+  }
+}
