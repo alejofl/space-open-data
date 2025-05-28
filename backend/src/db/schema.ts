@@ -1,4 +1,4 @@
-import { char, pgTable, real, uuid, varchar } from "drizzle-orm/pg-core";
+import { char, pgTable, real, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
 
 export const launches = pgTable("launches", {
     id: varchar().primaryKey(),
@@ -30,4 +30,9 @@ export const missions = pgTable("missions", {
     missionStatus: varchar().notNull(),
     rocketStatus: varchar().notNull(),
     rocketPrice: real(),
+});
+
+export const last_update = pgTable("last_update", {
+    id: uuid().primaryKey().defaultRandom(),
+    timestamp: timestamp().notNull().defaultNow(),
 });

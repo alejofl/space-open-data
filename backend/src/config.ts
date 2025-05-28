@@ -8,7 +8,8 @@ type Config = {
         user: string;
         password: string;
         database: string;
-    }
+    },
+    apiUrl: string;
 }
 
 dotenv.config({ path: "../.env" });
@@ -21,7 +22,8 @@ const config: Config = {
         user: process.env.POSTGRES_USER!,
         password: process.env.POSTGRES_PASSWORD!,
         database: process.env.POSTGRES_DB!,
-    }
+    },
+    apiUrl: process.env.BACKEND_API_URL || "https://ll.thespacedevs.com/2.3.0",
 };
 
 export default config;
