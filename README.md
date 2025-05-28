@@ -1,5 +1,17 @@
 # Space Open Data
 
+## Description
+
+This project is a web application that provides access to space-related open data. It consists of a backend API that fetches data from the Space Devs API and a frontend application that displays the data in a user-friendly way. The project uses Docker for containerization and PostgreSQL as the database.
+
+The aim of this project is to make space data more accessible for research, education, and public interest, as well as an opportunity to learn about open data, data ethics, and web development.
+
+Here are some screenshots of the application running:
+
+![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 2](screenshots/screenshot2.png)
+![Screenshot 3](screenshots/screenshot3.png)
+
 ## Running the project
 
 This project is conviniently set up to run in a Docker container. To run the project, follow these steps:
@@ -63,4 +75,4 @@ This project was done in an academic environment, as part of the curriculum of D
 
 * Alejo Flores Lucey (ID: if24x390)
 * Lucía Digon (ID: se24m504)
-* Fabian Londen (ID: xxx)
+* Fabian Londen (ID: ee24x035)
