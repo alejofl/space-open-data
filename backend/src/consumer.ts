@@ -8,10 +8,10 @@ export async function updateDatabaseData() {
     console.log("Updating database with latest data...");
 
     const launchesData = [];
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 8; i++) {
         try {
             const offset = i > 0 ? 1 : 0
-            const response = await axios.get(`${config.apiUrl}/launches/?ordering=-net&limit=50&offset=${i * 50 + offset}`);
+            const response = await axios.get(`${config.apiUrl}/launches/?ordering=-net&limit=80&offset=${i * 80 + offset}`);
             if (response.status === 200) {
                 launchesData.push(...response.data.results);
             }
@@ -44,7 +44,7 @@ export async function updateDatabaseData() {
     }
 
     const astronautsData = [];
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) {
         try {
             const offset = i > 0 ? 1 : 0
             const response = await axios.get(`${config.apiUrl}/astronauts/?ordering=-date_of_birth&limit=100&offset=${i * 100 + offset}`);
