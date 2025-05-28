@@ -1,59 +1,55 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
-import Papa from 'papaparse'
 import { TimelineGrouped } from '@/components/timeline-card/TimelineGrouped'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { Spinner } from '@/components/ui/spinner'
+import { CircleX } from 'lucide-react'
 
-type Mission = {
-  'Company Name': string
-  Datum: string
-  Location: string
-  Detail: string
-  'Status Mission': string
-}
-
-type TimelineItem = {
-  companyName: string
-  date: string
-  location: string
-  detail: string
-  statusMission: string
+export type TimelineItem = {
+  id: string,
+  company: string,
+  location: string,
+  date: string,
+  detail: string,
+  missionStatus: string,
+  rocketStatus: string,
+  rocketPrice?: number,
 }
 
 export const Route = createFileRoute('/timeline')({
-  component: TimelinePage,
+  component: App,
 })
 
-function TimelinePage() {
-  const [timelineData, setTimelineData] = useState<TimelineItem[]>([])
+function App() {
+  const { data, isError, isPending } = useQuery({
+    queryKey: ['missions'],
+    queryFn: async () => (await axios.get(`${import.meta.env.VITE_FRONTEND_API_URL}/missions`)).data
+  })
 
-  useEffect(() => {
-    fetch('/Space_Corrected.csv')
-      .then((res) => res.text())
-      .then((csv) => {
-        const parsed = Papa.parse<Mission>(csv, {
-          header: true,
-          skipEmptyLines: true,
-        })
+  if (isPending) {
+    return (
+      <div className="flex min-h-[calc(100vh-200px)] items-center justify-center">
+        <div className="flex items-center justify-center text-xl gap-2 font-bold bg-white p-8 rounded-3xl">
+          <Spinner className="size-16"/>
+        </div>
+      </div>
+    )
+  }
 
-        const mapped: TimelineItem[] = parsed.data.map((m) => ({
-          companyName: m['Company Name'],
-          date: m.Datum,
-          location: m.Location,
-          detail: m.Detail,
-          statusMission: m['Status Mission'],
-        }))
-
-        const sorted = mapped.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        )
-
-        setTimelineData(sorted)
-      })
-  }, [])
+  if (isError) {
+    return (
+      <div className="flex min-h-[calc(100vh-200px)] items-center justify-center">
+        <div className="flex items-center justify-center text-red-500 text-xl gap-2 font-bold bg-white p-8 rounded-3xl">
+          <CircleX className="size-8"/>
+          Failed to load missions. Please try again later.
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="flex flex-col items-center gap-6 py-10 px-4">
-      <TimelineGrouped timelineData={timelineData} />
+    <div className="flex flex-col items-center gap-6 px-4">
+      <TimelineGrouped timelineData={data} />
     </div>
   )
 }

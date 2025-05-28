@@ -13,7 +13,7 @@ type LaunchCardProps = {
 
 export function LaunchCard({title, company, imageUrl, launchDate, status}: LaunchCardProps) {
     return (
-        <div className="bg-background rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl max-w-sm">
+        <div className="bg-background rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl w-sm flex flex-col">
             <img
                 src={imageUrl}
                 alt={title}
@@ -22,7 +22,7 @@ export function LaunchCard({title, company, imageUrl, launchDate, status}: Launc
                 className="w-full h-64 object-cover"
                 style={{ aspectRatio: "600/400", objectFit: "cover" }}
             />
-            <div className="flex flex-col gap-2 p-3">
+            <div className="flex flex-col gap-2 p-3 grow">
                 <div>
                     <h3 className="text-2xl font-semibold">{title}</h3>
                     <p className="text-gray-500 dark:text-gray-400">{company}</p>
@@ -41,7 +41,6 @@ export function LaunchCard({title, company, imageUrl, launchDate, status}: Launc
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-            
         </div>
     );
 }

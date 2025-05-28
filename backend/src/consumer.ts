@@ -63,7 +63,7 @@ export async function updateDatabaseData() {
         imageUrl: astronaut.image?.image_url || "https://i.ibb.co/gb5gHTQ0/placeholder-image10.jpg",
         birthDate: astronaut.date_of_birth || "Unknown",
         deathDate: astronaut.date_of_death || null,
-        nationality: astronaut.nationality?.alpha_2_code || "XX",
+        nationality: astronaut.nationality[0]?.alpha_2_code || "XX",
         wikipediaUrl: astronaut.wiki || null,
     }));
 

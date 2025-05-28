@@ -30,7 +30,7 @@ export function TMinusCounter({ targetTime }: TMinusCounterProps) {
   }, [targetTime]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-1">
+    <div className="flex flex-col items-center justify-center gap-1 grow">
         <div className="font-mono text-2xl font-bold">
             T - {timeLeft}
         </div>

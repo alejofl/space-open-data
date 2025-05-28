@@ -5,7 +5,7 @@ type AstronautCardProps = {
     name: string;
     company: string;
     imageUrl: string;
-    birthDate: Date;
+    birthDate: Date | undefined;
     deathDate: Date | undefined;
     status: string;
     nationality: string;
@@ -14,6 +14,8 @@ type AstronautCardProps = {
 
 export function AstronautCard({ name, company, imageUrl, birthDate, deathDate, status, nationality, wikipediaUrl }: AstronautCardProps) {
     const calculateAge = () => {
+        if (!birthDate) return 0;
+
         const lastDate: Date = deathDate || new Date();
         const ageDate: Date = new Date(lastDate.getTime() - birthDate.getTime());
         const age: number = ageDate.getUTCFullYear() - 1970;
@@ -22,7 +24,7 @@ export function AstronautCard({ name, company, imageUrl, birthDate, deathDate, s
     const age = calculateAge();
 
     const content = (
-        <div className="bg-background rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl max-w-64">
+        <div className="bg-background rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl w-64 h-120 flex flex-col">
             <img
                 src={imageUrl}
                 alt={name}
@@ -30,9 +32,15 @@ export function AstronautCard({ name, company, imageUrl, birthDate, deathDate, s
                 height={400}
                 className="size-64 object-cover"
             />
-            <div className="flex flex-col gap-2 p-3">
-                <h3 className="text-2xl font-semibold leading-tight">
-                    <span className={clsx("mr-2 fi border", `fi-${nationality}`)} style={{width: "24px"}}></span>
+            <div className="flex flex-col gap-2 p-3 grow">
+                <h3 className="text-2xl font-semibold leading-tight flex items-center">
+                    {
+                        nationality !== "xx" && nationality !== "??"  ? (
+                            <span className={clsx("mr-2 fi border", `fi-${nationality}`)} style={{width: "24px"}}></span>
+                        ) : (
+                            <div className="mr-2 border bg-neutral-400 text-sm flex items-center justify-center" style={{width: "24px", height: "26px"}}>??</div>
+                        )
+                    }
                     {name}
                 </h3>
                 <div>
@@ -40,10 +48,16 @@ export function AstronautCard({ name, company, imageUrl, birthDate, deathDate, s
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <p className="text-gray-500 dark:text-gray-400">{`${age} years old`}</p>
+                                <p className="text-gray-500 dark:text-gray-400">{birthDate ? `${age} years old` : "Unknown age"}</p>
                             </TooltipTrigger>
                             <TooltipContent side="bottom">
-                                <p>{birthDate.toLocaleString("en-US", {dateStyle: "medium"})} {" - "} {deathDate?.toLocaleString("en-US", {dateStyle: "medium"}) || "Present"}</p>
+                                {
+                                    birthDate ? (
+                                        <p>{birthDate.toLocaleString("en-US", {dateStyle: "medium"})} {" - "} {deathDate?.toLocaleString("en-US", {dateStyle: "medium"}) || "Present"}</p>
+                                    ) : (
+                                        <p>Birth date unknown</p>
+                                    )
+                                }
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
