@@ -13,7 +13,10 @@ seedMissions();  // Seed the database with mission data
 app.use(cors());
 app.use(express.json());
 
-// API endpoint to serve mission data
+app.get("/", (req, res) => {
+    res.status(204).send();
+});
+
 app.get("/api/missions", async (req, res) => {
     const missionData = await db.select().from(missions);
     res.json(missionData);

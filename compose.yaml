@@ -12,6 +12,41 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+  
+  migrations:
+    build: ./backend
+    env_file: .env
+    command: sh -c "npm run db:migrate"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  backend:
+    build: ./backend
+    env_file: .env
+    ports:
+      - "127.0.0.1:${BACKEND_PORT_BINDING}:${BACKEND_PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${BACKEND_PORT}/"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    
+  frontend:
+    build: ./frontend
+    env_file: .env
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT_BINDING}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: always
 
 volumes:
   db_data:
